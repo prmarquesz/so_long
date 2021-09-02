@@ -6,13 +6,14 @@
 /*   By: proberto <proberto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 00:17:47 by proberto          #+#    #+#             */
-/*   Updated: 2021/09/02 01:43:15 by proberto         ###   ########.fr       */
+/*   Updated: 2021/09/02 01:46:12 by proberto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/so_long.h"
 
 static int	ft_sub_validate_walled(char ***map, t_map_config *map_config);
+static int	ft_sub_validate_core(char ***map, t_map_config *map_config);
 
 /**
  * @brief Validates map enclosure.
@@ -75,5 +76,71 @@ static int	ft_sub_validate_walled(char ***map, t_map_config *map_config)
 		}
 		i++;
 	}
+	return (1);
+}
+
+/**
+ * @brief Validates map core.
+ * @details Check if the map is composed only key characters.
+ * @param map The map to be validated.
+ * @param map_config The map configuration.
+ * @return 1 if the map is valid, 0 otherwise.
+*/
+int	ft_validate_core(char ***map, t_map_config *map_config)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < (int)map_config->row - 1)
+	{
+		j = 1;
+		while (j < (int)map_config->col - 1)
+		{
+			if ((*map)[i][j] != map_config->empty &&
+				(*map)[i][j] != map_config->exit &&
+				(*map)[i][j] != map_config->object &&
+				(*map)[i][j] != map_config->player &&
+				(*map)[i][j] != map_config->enemy &&
+				(*map)[i][j] != map_config->wall)
+				return (ft_error("Error\n unknown key char"));
+			j++;
+		}
+		i++;
+	}
+	if (!ft_sub_validate_core(map, map_config))
+		return (0);
+	return (1);
+}
+
+/**
+ * @brief Validates map core (sub function).
+ * @details Check if the map has at least one exit, one object and one player.
+ * @return 1 if the map is valid, 0 otherwise.
+*/
+static int	ft_sub_validate_core(char ***map, t_map_config *map_config)
+{
+	int	i;
+	int	exit_count;
+	int	object_count;
+	int	player_count;
+
+	i = 1;
+	exit_count = 0;
+	object_count = 0;
+	player_count = 0;
+	while (i < (int)map_config->row - 1)
+	{
+		if (ft_memchr((*map)[i], map_config->exit, map_config->col))
+			exit_count++;
+		if (ft_memchr((*map)[i], map_config->object, map_config->col))
+			object_count++;
+		if (ft_memchr((*map)[i], map_config->player, map_config->col))
+			player_count++;
+		i++;
+	}
+	if (!exit_count || !object_count || !player_count)
+		return (ft_error("Error\n map must have at least one exit ('E'), "
+				"one collectible ('C'), and one starting position ('P')"));
 	return (1);
 }
