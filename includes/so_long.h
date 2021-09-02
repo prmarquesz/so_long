@@ -6,7 +6,7 @@
 /*   By: proberto <proberto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:39:36 by proberto          #+#    #+#             */
-/*   Updated: 2021/09/02 01:24:15 by proberto         ###   ########.fr       */
+/*   Updated: 2021/09/02 01:34:51 by proberto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ typedef struct s_map_config
 }			t_map_config;
 
 int		map_mngmt(const char **argv);
+void	ft_free_map(char ***map);
+void	ft_free_map_config(t_map_config	*map_config);
 
 #endif
