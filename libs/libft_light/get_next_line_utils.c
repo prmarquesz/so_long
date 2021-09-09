@@ -12,18 +12,6 @@
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
 ssize_t	ft_is_there_a_line_break(char *str)
 {
 	ssize_t	offset;
