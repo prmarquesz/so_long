@@ -6,7 +6,7 @@
 /*   By: proberto <proberto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 03:34:00 by proberto          #+#    #+#             */
-/*   Updated: 2021/09/09 03:34:06 by proberto         ###   ########.fr       */
+/*   Updated: 2021/09/10 16:32:00 by proberto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_build_game(t_map *map)
 {
 	t_gui	gui;
 
+	gui.end_game = 0;
 	gui.win_title = "So Long";
 	gui.bpp = 40;
 	gui.map = map;
@@ -35,8 +36,6 @@ int	ft_build_game(t_map *map)
 	mlx_expose_hook(gui.win, ft_expose, &gui);
 	mlx_hook(gui.win, 17, 0, ft_close_win, &gui);
 	mlx_key_hook(gui.win, ft_key_hook, &gui);
-	ft_render_map(&gui, 0, 0, 0);
-	ft_render_step(&gui);
 	mlx_loop(gui.mlx);
 	return (1);
 }
@@ -48,8 +47,7 @@ int	ft_build_game(t_map *map)
 */
 static int	ft_expose(t_gui	*gui)
 {
-	ft_render_map(gui, 0, 0, 0);
-	ft_render_step(gui);
+	ft_render_game(gui);
 	return (1);
 }
 
@@ -67,26 +65,39 @@ static int	ft_close_win(t_gui	*gui)
 
 /**
  * @brief This function is responsible for handling the keyboard events.
+ * @details The function is activated when a key is pressed, then it is 
+ * checked if the key pressed is a key to close the window, restart 
+ * the game (when finished) and player movement, if it is, 
+ * then the function corresponding to the action will be triggered desired.
+ * When the player's movement is desired, the function corresponding to the 
+ * axis of the desired movement will be triggered.
  * @param keycode The keycode of the pressed key.
  * @param gui The gui (graphical user interface) structure.
  * @return 1 if the key was handled, 0 otherwise.
 */
 static int	ft_key_hook(int keycode, t_gui	*gui)
 {
-	printf("Hello from key_hook!\n");
-	printf("%c\n", keycode);
-	printf("%d\n\n", keycode);
+	int			ret;
+
+	ret = 0;
 	if (keycode == 65307)
 		ft_close_win(gui);
-	else if ((char)keycode == 'w')
-		ft_move_y(gui, UP);
+	if (gui->end_game)
+	{
+		if (keycode == 'r')
+			ft_reset_game(gui);
+		return (1);
+	}
+	if ((char)keycode == 'w')
+		ret = ft_move_y(gui, UP);
 	else if ((char)keycode == 's')
-		ft_move_y(gui, DOWN);
+		ret = ft_move_y(gui, DOWN);
 	else if ((char)keycode == 'a')
-		ft_move_x(gui, LEFT);
+		ret = ft_move_x(gui, LEFT);
 	else if ((char)keycode == 'd')
-		ft_move_x(gui, RIGHT);
-	ft_render_map(gui, 0, 0, 0);
-	ft_render_step(gui);
+		ret = ft_move_x(gui, RIGHT);
+	if (ret)
+		ft_render_game(gui);
+	stop_player(gui, keycode);
 	return (1);
 }
