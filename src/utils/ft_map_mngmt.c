@@ -6,7 +6,7 @@
 /*   By: proberto <proberto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 18:09:59 by proberto          #+#    #+#             */
-/*   Updated: 2021/09/09 03:31:41 by proberto         ###   ########.fr       */
+/*   Updated: 2021/09/10 16:02:22 by proberto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	ft_config_map(t_map *map, const char *argv)
 	map->comp.exit.qtd = 0;
 	map->comp.obj.qtd = 0;
 	map->comp.player.step_counter = 0;
+	map->comp.player.sprite_path = PATH_PLAYER_DOWN;
 	map->col = 0;
 	map->row = (size_t)ft_number_of_lines(argv, 0, 1);
 	if (!map->row)
