@@ -6,7 +6,7 @@
 /*   By: proberto <proberto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 03:35:06 by proberto          #+#    #+#             */
-/*   Updated: 2021/09/09 03:35:12 by proberto         ###   ########.fr       */
+/*   Updated: 2021/09/10 18:01:18 by proberto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,32 @@
 
 /**
  * @brief Reset the game.
- * @details Restart game and player step counter.
- * @param map The map to reset.
- * @param comp The components of the game to reset.
+ * @details Restart the game map, the player's position, collectibles number, 
+ * step counter and trigger render game.
+ * @param gui The gui (graphical user interface) structure.
  * @return 0 to force the game to restart.
 */
-int	ft_reset_game(t_map *map, t_components *comp)
+int	ft_reset_game(t_gui *gui)
 {
 	int	i;
 	int	j;
 
 	i = 1;
-	while (i < (int)map->row - 1)
+	while (i < (int)gui->map->row - 1)
 	{
 		j = 1;
-		while (j < (int)map->col - 1)
+		while (j < (int)gui->map->col - 1)
 		{
-			map->fill[i][j] = map->backup[i][j];
+			gui->map->fill[i][j] = gui->map->backup[i][j];
 			j++;
 		}
 		i++;
 	}
-	comp->player.x = comp->player.init_x;
-	comp->player.y = comp->player.init_y;
-	comp->obj.qtd = comp->obj.init_qtd;
-	comp->player.step_counter = 0;
+	gui->map->comp.player.x = gui->map->comp.player.init_x;
+	gui->map->comp.player.y = gui->map->comp.player.init_y;
+	gui->map->comp.obj.qtd = gui->map->comp.obj.init_qtd;
+	gui->map->comp.player.step_counter = 0;
+	gui->end_game = 0;
+	ft_render_game(gui);
 	return (0);
 }
