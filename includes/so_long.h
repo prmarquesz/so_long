@@ -6,7 +6,7 @@
 /*   By: proberto <proberto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:39:36 by proberto          #+#    #+#             */
-/*   Updated: 2021/09/09 04:06:30 by proberto         ###   ########.fr       */
+/*   Updated: 2021/09/10 16:02:34 by proberto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,33 @@
 # include "../libs/libft_light/libft.h"
 # include "../libs/minilibx/mlx.h"
 
+# define UP 'w'
+# define DOWN 's'
+# define LEFT 'a'
+# define RIGHT 'd'
 # define PATH_WALL "./sprite_files/wall.xpm"
 # define PATH_FLOOR "./sprite_files/floor.xpm"
 # define PATH_EXIT "./sprite_files/exit.xpm"
 # define PATH_OBJ "./sprite_files/obj.xpm"
-# define PATH_PLAYER "./sprite_files/player.xpm"
 # define PATH_ENEMY "./sprite_files/enemy.xpm"
-
-typedef enum e_sides
-{
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT
-}	t_sides;
+# define PATH_PLAYER_DOWN "./sprite_files/player_down.xpm"
+# define PATH_PLAYER_DOWN1 "./sprite_files/player_down1.xpm"
+# define PATH_PLAYER_DOWN2 "./sprite_files/player_down2.xpm"
+# define PATH_PLAYER_UP "./sprite_files/player_up.xpm"
+# define PATH_PLAYER_UP1 "./sprite_files/player_up1.xpm"
+# define PATH_PLAYER_UP2 "./sprite_files/player_up2.xpm"
+# define PATH_PLAYER_RIGHT "./sprite_files/player_right.xpm"
+# define PATH_PLAYER_RIGHT1 "./sprite_files/player_right1.xpm"
+# define PATH_PLAYER_RIGHT2 "./sprite_files/player_right2.xpm"
+# define PATH_PLAYER_LEFT "./sprite_files/player_left.xpm"
+# define PATH_PLAYER_LEFT1 "./sprite_files/player_left1.xpm"
+# define PATH_PLAYER_LEFT2 "./sprite_files/player_left2.xpm"
+# define PATH_PLAYER_WIN "./sprite_files/win.xpm"
 
 typedef struct s_spec
 {
 	char	token;
+	char	*sprite_path;
 	int		qtd;
 	int		init_qtd;
 	size_t	y;
@@ -72,6 +81,7 @@ typedef struct s_gui
 	void	*img;
 	char	*win_title;
 	int		bpp;
+	int		end_game;
 	t_map	*map;
 }			t_gui;
 
@@ -80,11 +90,13 @@ int		ft_error(char *message);
 int		ft_warning(char *message);
 int		ft_validate_map(t_map *map);
 int		ft_build_game(t_map *map);
-void	ft_render_map(t_gui *gui, int i, int j, int s);
-void	ft_render_step(t_gui *gui);
-void	ft_move_x(t_gui *gui, t_sides side);
-void	ft_move_y(t_gui *gui, t_sides side);
-int		ft_reset_game(t_map *map, t_components *comp);
+void	ft_render_game(t_gui *gui);
+int		ft_render_you_win(t_gui *gui, int x, int y);
+int		ft_render_you_lost(t_gui *gui);
+int		ft_move_x(t_gui *gui, char side);
+int		ft_move_y(t_gui *gui, char side);
+void	stop_player(t_gui *gui, char side);
+int		ft_reset_game(t_gui *gui);
 void	ft_free_map(char **map);
 
 #endif
