@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_validate_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: proberto <proberto@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 00:17:47 by proberto          #+#    #+#             */
-/*   Updated: 2021/09/09 02:40:23 by proberto         ###   ########.fr       */
+/*   Updated: 2021/09/10 03:10:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ int	ft_validate_map(t_map *map)
 	if (!map->comp.player.qtd || !map->comp.exit.qtd || !map->comp.obj.qtd)
 		return (ft_error("the map must have at least one exit ('E'), "
 				"one collectible ('C'), and one starting position ('P')\n"));
+	map->comp.player.init_x = map->comp.player.x;
+	map->comp.player.init_y = map->comp.player.y;
+	map->comp.obj.init_qtd = map->comp.obj.qtd;
 	return (1);
 }
 
@@ -149,8 +152,5 @@ static int	ft_sub_validate_core(t_map *map, int i, int j)
 		map->fill[i][j] != map->comp.exit.token &&
 		map->fill[i][j] != map->comp.obj.token)
 		return (ft_error("unknown key char\n"));
-	map->comp.player.init_x = map->comp.player.x;
-	map->comp.player.init_y = map->comp.player.y;
-	map->comp.obj.init_qtd = map->comp.obj.qtd;
 	return (1);
 }
