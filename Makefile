@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: proberto <proberto@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/14 00:24:07 by proberto          #+#    #+#              #
-#    Updated: 2021/09/10 18:15:51 by proberto         ###   ########.fr        #
+#    Updated: 2021/09/13 10:58:35 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,17 +24,17 @@ ft_render.c ft_move.c ft_reset_game.c ft_free.c)
 OBJS = $(SRC:.c=.o)
 MAP = map_files/map3.ber
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
 MLXFLAGS = -Imlx -lX11 -lXext
 RM = rm -f
 
 all:	$(NAME)
 	
 $(NAME):	$(OBJS) $(LIBFT) $(MLX)
-	@$(CC) -g $(CFLAGS) $(SRC) $(LIBFT) $(MLX) $(MLXFLAGS) -o $@
+	@$(CC) $(CFLAGS) $(SRC) $(LIBFT) $(MLX) $(MLXFLAGS) -o $@
 
 %.o:	%.c
-	@$(CC) -g $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):	
 	@$(MAKE) -C $(PATH_LIBFT)
@@ -59,7 +59,6 @@ clean:
 fclean:	clean
 	@$(RM) $(NAME)
 	@$(MAKE) fclean -C $(PATH_LIBFT)
-	@$(MAKE) fclean -C $(PATH_MLX)
 
 re:	fclean all
 
