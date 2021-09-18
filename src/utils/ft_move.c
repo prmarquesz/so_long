@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_move.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: proberto <proberto@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 03:34:48 by proberto          #+#    #+#             */
-/*   Updated: 2021/09/10 17:39:56 by proberto         ###   ########.fr       */
+/*   Updated: 2021/09/13 11:37:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param side The side of the character where the move ended.
  * @return void.
 */
-void	stop_player(t_gui *gui, char side)
+void	ft_stop_player(t_gui *gui, char side)
 {
 	if (side == UP)
 		gui->map->comp.player.sprite_path = PATH_PLAYER_UP;
