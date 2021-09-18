@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_build_game.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: proberto <proberto@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 03:34:00 by proberto          #+#    #+#             */
-/*   Updated: 2021/09/10 16:32:00 by proberto         ###   ########.fr       */
+/*   Updated: 2021/09/16 12:46:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	ft_build_game(t_map *map)
 	mlx_expose_hook(gui.win, ft_expose, &gui);
 	mlx_hook(gui.win, 17, 0, ft_close_win, &gui);
 	mlx_key_hook(gui.win, ft_key_hook, &gui);
+	mlx_loop_hook(gui.mlx, ft_enemy_patrols, &gui);
 	mlx_loop(gui.mlx);
 	return (1);
 }
@@ -98,6 +99,6 @@ static int	ft_key_hook(int keycode, t_gui	*gui)
 		ret = ft_move_x(gui, RIGHT);
 	if (ret)
 		ft_render_game(gui);
-	stop_player(gui, keycode);
+	ft_stop_player(gui, keycode);
 	return (1);
 }
