@@ -6,7 +6,7 @@
 /*   By: proberto <proberto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:39:36 by proberto          #+#    #+#             */
-/*   Updated: 2021/09/10 16:02:34 by proberto         ###   ########.fr       */
+/*   Updated: 2021/09/18 14:38:40 by proberto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,12 @@ int		ft_render_you_win(t_gui *gui, int x, int y);
 int		ft_render_you_lost(t_gui *gui);
 int		ft_move_x(t_gui *gui, char side);
 int		ft_move_y(t_gui *gui, char side);
-void	stop_player(t_gui *gui, char side);
+void	ft_stop_player(t_gui *gui, char side);
+int		ft_enemy_patrols(t_gui *gui);
+char	ft_try_up(t_gui *gui, int i, int j);
+char	ft_try_down(t_gui *gui, int i, int j);
+char	ft_try_left(t_gui *gui, int i, int j);
+char	ft_try_right(t_gui *gui, int i, int *j);
 int		ft_reset_game(t_gui *gui);
 void	ft_free_map(char **map);
 
