@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: proberto <proberto@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/14 00:24:07 by proberto          #+#    #+#              #
-#    Updated: 2021/09/13 10:58:35 by user42           ###   ########.fr        #
+#    Updated: 2021/09/18 16:14:13 by proberto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ LIBFT = $(PATH_LIBFT)/libft.a
 MLX = $(PATH_MLX)/libmlx.a
 SRC = $(PATH_SRC)/so_long.c $(addprefix $(PATH_SRC)/utils/, \
 ft_map_mngmt.c ft_errors_warnings.c ft_validate_map.c ft_build_game.c \
-ft_render.c ft_move.c ft_reset_game.c ft_free.c)
+ft_render.c ft_move.c ft_enemy_patrols.c ft_try_move_enemy.c ft_reset_game.c \
+ft_free.c)
 OBJS = $(SRC:.c=.o)
 MAP = map_files/map3.ber
 CC = gcc
@@ -41,6 +42,8 @@ $(LIBFT):
 
 $(MLX):	
 	@$(MAKE) -C $(PATH_MLX)
+
+bonus:	all
 
 exe:	
 	@./$(NAME) $(MAP)
